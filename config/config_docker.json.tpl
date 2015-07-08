@@ -24,15 +24,15 @@
     },
     "SqlSettings": {
         "DriverName": "mysql",
-        "DataSource": "mmuser:mostest@tcp(localhost:3306)/mattermost_test",
-        "DataSourceReplicas": ["mmuser:mostest@tcp(localhost:3306)/mattermost_test"],
+        "DataSource": "{{ MYSQL_USER | default('umattermost') }}:{{ MYSQL_PASSWORD | default('mattermost') }}@tcp({{ MYSQL_HOST | default('mysql') }}:3306)/{{ MYSQL_DATABASE | default('mattermostdb') }}",
+        "DataSourceReplicas": ["{{ MYSQL_USER | default('umattermost') }}:{{ MYSQL_PASSWORD | default('mattermost') }}@tcp({{ MYSQL_HOST | default('mysql') }}:3306)/{{ MYSQL_DATABASE | default('mattermostdb') }}"],
         "MaxIdleConns": 10,
         "MaxOpenConns": 10,
         "Trace": false,
         "AtRestEncryptKey": "Ya0xMrybACJ3sZZVWQC7e31h5nSDWZFS"
     },
     "RedisSettings": {
-        "DataSource": "localhost:6379",
+        "DataSource": "{{ REDIS_HOST | default('redis') }}:{{ REDIS_PORT | default('6379') }}",
         "MaxOpenConns": 1000
     },
     "AWSSettings": {

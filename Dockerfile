@@ -36,50 +36,22 @@ ENV GOPATH /go
 ENV PATH /go/bin:$PATH
 WORKDIR /go
 
-# ---------------------------------------------------------------------------------------------------------------------
 
-#
-# Install SQL
-# 
+# -----------------------------------------------------------------------------
+RUN \
+    apt-get -y  install python-zmq python-gevent python-gevent-websocket \
+      python-bottle python-mako python-anyjson python-greenlet \
+      python-beaker python-psutil python-tornado \
+      unzip wget vim-tiny python-distribute python-pip python-jinja2 \
+      software-properties-common \
+      && apt-get clean
 
-ENV MYSQL_ROOT_PASSWORD=mostest
-ENV MYSQL_USER=mmuser
-ENV MYSQL_PASSWORD=mostest
-ENV MYSQL_DATABASE=mattermost_test
+RUN pip --no-input install --upgrade pip
 
-RUN groupadd -r mysql && useradd -r -g mysql mysql
+RUN \
+    pip --no-input install envtpl==0.3.2
 
-RUN apt-get update && apt-get install -y perl --no-install-recommends && rm -rf /var/lib/apt/lists/*
-
-RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5
-
-ENV MYSQL_MAJOR 5.6
-ENV MYSQL_VERSION 5.6.25
-
-RUN echo "deb http://repo.mysql.com/apt/debian/ wheezy mysql-${MYSQL_MAJOR}" > /etc/apt/sources.list.d/mysql.list
-
-RUN apt-get update \
-	&& export DEBIAN_FRONTEND=noninteractive \
-	&& apt-get -y install mysql-server \ 
-	&& rm -rf /var/lib/apt/lists/* \
-	&& rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql
-
-RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf
-
-VOLUME /var/lib/mysql
-# ---------------------------------------------------------------------------------------------------------------------
-
-#
-# Install Redis
-#
-
-RUN apt-get update && apt-get install -y wget
-RUN wget http://download.redis.io/redis-stable.tar.gz; \
-		tar xvzf redis-stable.tar.gz; \
-		cd redis-stable; \
-		make install
-
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 # Copy over files
 ADD . /go/src/github.com/mattermost/platform

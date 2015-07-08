@@ -1,0 +1,16 @@
+web:
+    build: .
+    ports: 
+        - "8000:80"
+    links:
+        - redis:redis
+        - mysql:mysql
+redis:
+    image: redis:latest
+  
+mysql:
+    image: mysql:latest
+    environment:
+        MYSQL_DATABASE: mattermostdb
+        MYSQL_USER: umattermost
+        MYSQL_PASSWORD: mattermost
