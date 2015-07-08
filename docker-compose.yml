@@ -5,12 +5,20 @@ web:
     links:
         - redis:redis
         - mysql:mysql
+    environment:
+        SMTP_USERNAME: username@domain.com
+        SMTP_PASSWORD: pass
+        SMTP_SERVER: smtp.domain.com
+        SMTP_PORT: 25
+        SMTP_USE_TLS: 'false'
+        REDIS_HOST: redis
+        REDIS_PORT: 6379
 redis:
     image: redis:latest
-  
 mysql:
     image: mysql:latest
     environment:
+        MYSQL_ROOT_PASSWORD: mattermost
         MYSQL_DATABASE: mattermostdb
         MYSQL_USER: umattermost
         MYSQL_PASSWORD: mattermost

@@ -54,10 +54,10 @@
         "ProfileHeight": 128
     },
     "EmailSettings": {
-        "SMTPUsername": "",
-        "SMTPPassword": "",
-        "SMTPServer": "localhost:25",
-		"UseTLS": false,
+        "SMTPUsername": "{{ SMTP_USERNAME | default('') }}",
+        "SMTPPassword": "{{ SMTP_PASSWORD | default('') }}",
+        "SMTPServer": "{{ SMTP_SERVER | default('localhost') }}:{{ SMTP_PORT | default('25') }}",
+		"UseTLS": {{ SMTP_USE_TLS | default('false') }},
         "FeedbackEmail": "",
         "FeedbackName": "",
         "ApplePushServer": "",

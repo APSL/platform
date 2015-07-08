@@ -19,7 +19,7 @@ RUN apt-get install -y postfix
 
 RUN apt-get update && apt-get install -y \
 		gcc libc6-dev make git mercurial \
-		--no-install-recommends \
+		--no-install-recommends
 	
 ENV GOLANG_VERSION 1.4.2
 
@@ -42,14 +42,13 @@ RUN \
       python-bottle python-mako python-anyjson python-greenlet \
       python-beaker python-psutil python-tornado \
       unzip wget vim-tiny python-distribute python-pip python-jinja2 \
-      software-properties-common \
-      && apt-get clean
-      && rm -rf /var/lib/apt/lists/*
+      software-properties-common && \
+      apt-get clean && \
+      rm -rf /var/lib/apt/lists/* 
 
 RUN pip --no-input install --upgrade pip
 
-RUN \
-    pip --no-input install envtpl==0.3.2
+RUN pip --no-input install envtpl==0.3.2
 
 # -----------------------------------------------------------------------------
 
