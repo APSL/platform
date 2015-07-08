@@ -20,8 +20,7 @@ RUN apt-get install -y postfix
 RUN apt-get update && apt-get install -y \
 		gcc libc6-dev make git mercurial \
 		--no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/*
-
+	
 ENV GOLANG_VERSION 1.4.2
 
 RUN curl -sSL https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz \
@@ -45,6 +44,7 @@ RUN \
       unzip wget vim-tiny python-distribute python-pip python-jinja2 \
       software-properties-common \
       && apt-get clean
+      && rm -rf /var/lib/apt/lists/*
 
 RUN pip --no-input install --upgrade pip
 
