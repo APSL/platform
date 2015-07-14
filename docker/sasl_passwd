@@ -1,0 +1,1 @@
+[{{ POSTIFX_RELAY_SMTP_SERVER | default('') }}]:{{POSTIFX_RELAY_SMTP_PORT | default('25') }} {{POSTIFX_RELAY_SMTP_USERNAME | default('') }}:{{POSTIFX_RELAY_SMTP_PASSWORD | default('')}}

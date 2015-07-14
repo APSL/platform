@@ -1,18 +1,32 @@
 web:
     build: .
-    ports: 
+    ports:
         - "8000:80"
     links:
         - redis:redis
         - mysql:mysql
     environment:
-        SMTP_USERNAME: username@domain.com
-        SMTP_PASSWORD: pass
-        SMTP_SERVER: smtp.domain.com
-        SMTP_PORT: 25
-        SMTP_USE_TLS: 'false'
+        SITE_NAME: Mattermost
+        # DOMAIN: domain.com
+        # Using this varaible configurations the app can't send emails
+        # SMTP_USERNAME:
+        # SMTP_PASSWORD:
+        # SMTP_SERVER:
+        # SMTP_PORT: 25
+        # SMTP_USE_TLS: 'false'
+        # Alternative configuration using postix like a relay
+        POSTIFX_RELAY_SMTP_USERNAME: username
+        POSTIFX_RELAY_SMTP_PASSWORD: password
+        POSTIFX_RELAY_SMTP_SERVER: smtp.domain.com
+        POSTIFX_RELAY_SMTP_PORT: 25
         REDIS_HOST: redis
         REDIS_PORT: 6379
+        FEEDBACK_EMAIL: info@domain.com
+        FEEDBACK_NAME: Mattermost
+        S3_ACCESS_KEY_ID:
+        S3_SECRET_ACCESS_KEY:
+        S3_BUCKET: bucket
+        S3_REGION: eu-west-1
 redis:
     image: redis:latest
 mysql:

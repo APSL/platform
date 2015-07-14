@@ -8,8 +8,8 @@
         "FileLocation": ""
     },
     "ServiceSettings": {
-        "SiteName": "Mattermost",
-        "Domain": "",
+        "SiteName": "{{ SITE_NAME | default('Mattermost') }}",
+        "Domain": "{{ DOMAIN | default('') }}",
         "Mode" : "dev",
 		"AllowTesting" : false,
         "UseSSL": false,
@@ -36,10 +36,10 @@
         "MaxOpenConns": 1000
     },
     "AWSSettings": {
-        "S3AccessKeyId": "",
-        "S3SecretAccessKey": "",
-        "S3Bucket": "",
-        "S3Region": "",
+        "S3AccessKeyId": "{{ S3_ACCESS_KEY_ID | default('') }}",
+        "S3SecretAccessKey": "{{ S3_SECRET_ACCESS_KEY | default('') }}",
+        "S3Bucket": "{{ S3_BUCKET | default('') }}",
+        "S3Region": "{{ S3_REGION | default('') }}",
         "Route53AccessKeyId": "",
         "Route53SecretAccessKey": "",
         "Route53ZoneId": "",
@@ -57,9 +57,9 @@
         "SMTPUsername": "{{ SMTP_USERNAME | default('') }}",
         "SMTPPassword": "{{ SMTP_PASSWORD | default('') }}",
         "SMTPServer": "{{ SMTP_SERVER | default('localhost') }}:{{ SMTP_PORT | default('25') }}",
-		"UseTLS": {{ SMTP_USE_TLS | default('false') }},
-        "FeedbackEmail": "",
-        "FeedbackName": "",
+		    "UseTLS": {{ SMTP_USE_TLS | default('false') }},
+        "FeedbackEmail": "{{ FEEDBACK_EMAIL | default('') }}",
+        "FeedbackName": "{{ FEEDBACK_NAME | default('') }}",
         "ApplePushServer": "",
         "ApplePushCertPublic": "",
         "ApplePushCertPrivate": ""

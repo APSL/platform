@@ -12,7 +12,7 @@ echo starting postfix
 
 envtpl /go/src/github.com/mattermost/platform/config/config_docker.json.tpl  --allow-missing --keep-template
 
-echo starting react processor	
+echo starting react processor
 cd /go/src/github.com/mattermost/platform/web/react && npm start &
 
 echo starting go web server

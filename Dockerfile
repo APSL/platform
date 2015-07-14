@@ -20,7 +20,7 @@ RUN apt-get install -y postfix
 RUN apt-get update && apt-get install -y \
 		gcc libc6-dev make git mercurial \
 		--no-install-recommends
-	
+
 ENV GOLANG_VERSION 1.4.2
 
 RUN curl -sSL https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz \
@@ -44,7 +44,7 @@ RUN \
       unzip wget vim-tiny python-distribute python-pip python-jinja2 \
       software-properties-common && \
       apt-get clean && \
-      rm -rf /var/lib/apt/lists/* 
+      rm -rf /var/lib/apt/lists/*
 
 RUN pip --no-input install --upgrade pip
 
@@ -57,11 +57,16 @@ ADD . /go/src/github.com/mattermost/platform
 
 # Insert postfix config
 ADD ./docker/main.cf /etc/postfix/
+ADD ./docker/transport /etc/postfix/
+ADD ./docker/sasl_passwd /etc/postfix/
+RUN echo "mattermost" > /etc/mailname
+RUN postmap /etc/postfix/transport
+RUN postmap /etc/postfix/sasl_passwd
 
 RUN go get github.com/tools/godep
-RUN cd /go/src/github.com/mattermost/platform; godep restore 
+RUN cd /go/src/github.com/mattermost/platform; godep restore
 RUN go install github.com/mattermost/platform
-RUN cd /go/src/github.com/mattermost/platform/web/react; npm install 
+RUN cd /go/src/github.com/mattermost/platform/web/react; npm install
 
 RUN chmod +x /go/src/github.com/mattermost/platform/docker/docker-entry.sh
 ENTRYPOINT /go/src/github.com/mattermost/platform/docker/docker-entry.sh
